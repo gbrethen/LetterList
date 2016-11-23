@@ -1,0 +1,45 @@
+{% extends 'master' %}
+
+{% block content %}
+    <div>
+        <p>
+            Below is the list of all the Letter templates in the old CM format as well as the newer Letter Central format. You can also
+            contribute by clicking the below button.
+        </p>
+        <a href="letter/create" class="btn btn-success btn-block"> Add New Letter </a>
+        <hr>
+    </div>
+    <div class="posts-wrapper">
+        <div class="card">
+            <div class="card-block">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Action</th>
+                            <th>Priority</th>
+                            <th style="width: 20%;">Name</th>
+                            <th style="width: 40%;">Comments</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% for letter in letters %}
+                        <tr class="letter">
+                            <td>
+                                <a href="letter/delete/{{ letter.id }}" class="btn btn-danger">Delete</a>
+                                <a href="letter/edit/{{ letter.id }}" class="btn btn-success">Edit</a>
+                            </td>
+                            <td>{{ letter.letterPriority }}</td>
+                            <td>{{ letter.letterName | truncate(25) }}</td>
+                            <td>{{ letter.letterComments | truncate(75) }}</td>
+                            <td>{{ letter.letterStatus }}</td>
+                        </tr>
+                {% else %}
+                        <tr><td colspan='3'><h2>No letters found</h2></td></tr>
+                {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
